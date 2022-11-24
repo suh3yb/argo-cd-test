@@ -1,0 +1,16 @@
+# We disable the dex component that is used for integration with external auth providers
+# We start the server with the --insecure flag to serve the Web UI over http (This is assuming we’re using a local k8s server without TLS setup)
+# We add the Argo CD Helm repository to the repositories list to be used by applications
+# The password for the admin user is set to argocd
+
+argo-cd:
+  dex:
+    enabled: false
+  server:
+    extraArgs:
+      - --insecure
+    config:
+      repositories:
+        - type: helm
+          name: argo-cd
+          url: https://argoproj.github.io/argo-helm
